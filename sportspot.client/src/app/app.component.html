@@ -10,13 +10,15 @@
     </button>
   </mat-toolbar>
 
+  <button mat-icon-button (click)="getGame()">
+    <mat-icon>refresh</mat-icon>
+  </button>
   <div *ngIf="game" class="game-details" style="display: flex; flex-direction: row; justify-content: space-evenly;">
     @for (rotation of rotations; track rotation) {
     <mat-list>
       <div mat-subheader>{{rotation.name}}</div>
       @for (sub of rotation.substitutions; track sub) {
       <mat-list-item>
-        <mat-icon matListItemIcon>person</mat-icon>
         <div matListItemTitle>{{sub.position.name}}</div>
         <div matListItemLine>{{sub.player.name}} - {{sub.playerCount}} subs</div>
       </mat-list-item>
