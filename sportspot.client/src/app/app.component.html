@@ -1,0 +1,45 @@
+<div class="sport-spot">
+  <mat-toolbar class="toolbar">
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Sharkicks - 2024</span>
+    <span class="spacer"></span>
+    <button mat-icon-button>
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div *ngIf="game" class="game-details" style="display: flex; flex-direction: row; justify-content: space-evenly;">
+    @for (rotation of rotations; track rotation) {
+    <mat-list>
+      <div mat-subheader>{{rotation.name}}</div>
+      @for (sub of rotation.substitutions; track sub) {
+      <mat-list-item>
+        <mat-icon matListItemIcon>person</mat-icon>
+        <div matListItemTitle>{{sub.position.name}}</div>
+        <div matListItemLine>{{sub.player.name}} - {{sub.playerCount}} subs</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      }
+    </mat-list>
+    }
+    <!--<table>
+      <thead>
+        <h3>{{rotation.name}}</h3>
+        <tr>
+          <th>Sub Count</th>
+          <th>Position</th>
+          <th>Player</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sub of rotation.substitutions">
+          <td>{{ sub.playerCount }}</td>
+          <td>{{ sub.position.name }}</td>
+          <td>{{ sub.player.name }}</td>
+        </tr>
+      </tbody>
+    </table>-->
+  </div>
+</div>
