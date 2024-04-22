@@ -17,7 +17,7 @@ namespace SportSpot.Server.Controllers
         }
 
         [HttpGet, Route("")]
-        public IActionResult GetGameTest()
+        public async Task<IActionResult> GetGameTest()
         {
             Guid requestGuid = Guid.NewGuid();
 

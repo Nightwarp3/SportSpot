@@ -13,10 +13,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { NewTeamComponent } from './components/team/team.component';
+import { GameComponent } from './components/game/game.component';
+import { GameDetailsComponent } from './components/game-details/game-details.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NewTeamComponent,
+    GameComponent,
+    GameDetailsComponent
   ],
   imports: [
     BrowserModule,
