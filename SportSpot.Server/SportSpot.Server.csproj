@@ -18,6 +18,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SportSpot.BL\SportSpot.BL.csproj" />
+    <ProjectReference Include="..\sportspot.client\sportspot.client.esproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
