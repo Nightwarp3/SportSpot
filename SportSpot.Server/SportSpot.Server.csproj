@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -10,10 +10,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="StoredData\Game.json" />
+    <Content Remove="StoredData\Player.json" />
+    <Content Remove="StoredData\Team.json" />
     <Content Remove="StoredData\TeamUser.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="StoredData\Game.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="StoredData\Team.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="StoredData\Player.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="StoredData\TeamUser.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

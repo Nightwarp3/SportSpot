@@ -1,0 +1,86 @@
+<div class="home">
+    <mat-card>
+        <mat-card-header>
+            <mat-icon mat-card-avatar>group_add</mat-icon>
+            <mat-card-title>Create a new Team</mat-card-title>
+            <mat-card-subtitle>Create and manage your own Team's rotation, positions, and more!</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form class="new-team" [formGroup]="newTeamFormGroup" (ngSubmit)="createNewTeam()">
+                <ng-container formGroupName="team">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Team Name</mat-label>
+                        <input matInput formControlName="name" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Team Description</mat-label>
+                        <input matInput formControlName="description" />
+                    </mat-form-field>
+                </ng-container>
+                <mat-form-field appearance="outline">
+                    <mat-label>Team Admin Username</mat-label>
+                    <input matInput formControlName="username" />
+                    @if (userService.validatingUser()) {
+                    <mat-spinner matSuffix diameter="20" matTooltip="Validating username"></mat-spinner>
+                    } @else {
+                        @switch(userService.userValid())
+                        {
+                            @case(true) {
+                            <mat-icon matSuffix color="primary" matTooltip="Username is available">check</mat-icon>
+                            }
+                            @case(false) {
+                            <mat-icon matSuffix color="warn" matTooltip="Username is not available">close</mat-icon>
+                            }
+                        }
+                    }
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Shared Password</mat-label>
+                    <input matInput formControlName="password" type="password" />
+                    <mat-hint>Share this password with your team members to join your team.</mat-hint>
+                    @if (password.hasError('required')) {
+                    <mat-error>Password is required.</mat-error>
+                    }
+                    @if (password.hasError('minlength')) {
+                    <mat-error>Password must be at least 8 characters long.</mat-error>
+                    }
+                    @if (password.hasError('uppercase')) {
+                    <mat-error>Password have at least 1 upper-case character.</mat-error>
+                    }
+                    @if (password.hasError('lowercase')) {
+                    <mat-error>Password have at least 1 lower-case character.</mat-error>
+                    }
+                    @if (password.hasError('number')) {
+                    <mat-error>Password have at least 1 number.</mat-error>
+                    }
+                </mat-form-field>
+                @if (password.value && password.valid) {
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput formControlName="confirmPassword" type="password" />
+                    @if (confirmPassword.hasError('passwordsMatch')) {
+                    <mat-error>Passwords do not match.</mat-error>
+                    }
+                </mat-form-field>
+                }
+            </form>
+        </mat-card-content>
+        <mat-card-actions [align]="'end'">
+            <button mat-raised-button color="primary" [disabled]="newTeamFormGroup.invalid">Create Team</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>View an Existing Team</mat-card-title>
+            <mat-card-subtitle>This should have been given to you by the coach or assistants</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="existingTeamFormGroup">
+                <mat-form-field appearance="outline">
+                    <mat-label>Shared Password</mat-label>
+                    <input matInput formControlName="password" type="password" />
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

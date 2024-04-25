@@ -4,16 +4,39 @@ namespace SportSpot.BL.Services
 {
     public class GameService : IGameService
     {
+        private readonly IDataService _dataService;
         private readonly ITeamService _teamService;
         private readonly IPlayerService _playerService;
 
-        public GameService(ITeamService teamService, IPlayerService playerService)
+        public GameService(IDataService dataService, ITeamService teamService, IPlayerService playerService)
         {
+            _dataService = dataService;
             _teamService = teamService;
             _playerService = playerService;
         }
+        
+        public async Task<Game> GetGame(Guid gameId, Guid teamId)
+        {
+            return await _dataService.GetGame(gameId, teamId);
+        }
 
-        public List<Substitution> GenerateSubstitutions(IEnumerable<Player> players, IEnumerable<Position> positions, IEnumerable<Rotation> rotations)
+        public async Task<IEnumerable<Game>> GetGamesByTeam(Guid teamId)
+        {
+            return await _dataService.GetGamesByTeam(teamId);
+            // TODO: Probably need to retrieve the Substitions here too...
+        }
+
+        public async Task<Game?> UpsertGame(Game game)
+        {
+            return await _dataService.UpsertGame(game);
+        }
+
+        public async Task<bool> DeleteGame(Guid gameId)
+        {
+            return true;
+        }
+
+        public async Task<List<Substitution>> GenerateSubstitutions(IEnumerable<Player> players, IEnumerable<Position> positions, IEnumerable<Rotation> rotations)
         {
             List<Substitution> substitutions = new List<Substitution>();
 
@@ -92,22 +115,6 @@ namespace SportSpot.BL.Services
             }
 
             return substitutions;
-        }
-
-        public IEnumerable<Game> GetGamesByTeam(Guid teamId)
-        {
-            var team = _teamService.GetTeam("asdf");
-            return new List<Game>
-            {
-                new Game
-                {
-                    Id = Guid.NewGuid(),
-                    TeamId = teamId,
-                    Team = team,
-                    AttendingPlayers = team.Players,
-                    GameStart = DateTime.Now
-                }
-            };
         }
     }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TeamService } from './services/team/team.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'sportspot.client';
 
-  constructor() { }
+  constructor(public teamService: TeamService) { }
 
   ngOnInit() {
   }

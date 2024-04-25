@@ -9,7 +9,11 @@ namespace SportSpot.BL.Models
         [JsonIgnore]
         public Team Team { get; set; }
         public DateTime GameStart { get; set; }
+        public IEnumerable<Guid> AttendingPlayerIds { get; set; }
+        [JsonIgnore]
         public IEnumerable<Player> AttendingPlayers { get; set; }
+        public IEnumerable<Guid> SubstitutionIds { get; set; }
+        [JsonIgnore]
         public IEnumerable<Substitution> Substitutions { get; set; }
     }
 }

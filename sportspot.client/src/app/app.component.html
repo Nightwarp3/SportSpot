@@ -3,14 +3,17 @@
         <button mat-icon-button>
             <mat-icon>menu</mat-icon>
         </button>
-        <span>Sharkicks - 2024</span>
+        @if (teamService.team()) {
+        <span>{{ teamService.team()?.name }}</span>
+        } @else {
+            <span>Sport Spot</span>
+        }
         <span class="spacer"></span>
         <button mat-icon-button>
             <mat-icon>share</mat-icon>
         </button>
     </mat-toolbar>
     <div class="view">
-        <sportspot-game-details></sportspot-game-details>
-        <!-- <router-outlet></router-outlet> -->
+        <router-outlet></router-outlet>
     </div>
 </div>

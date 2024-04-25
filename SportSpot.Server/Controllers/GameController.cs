@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportSpot.BL.Models;
 using SportSpot.BL.Services;
 
 namespace SportSpot.Server.Controllers
@@ -7,33 +8,30 @@ namespace SportSpot.Server.Controllers
     [ApiController]
     public class GameController : ControllerBase
     {
+        private readonly AuthorizationService _authorizationService;
         private readonly ITeamService _teamService;
         private readonly IGameService _gameService;
 
-        public GameController(ITeamService teamService, IGameService gameService)
+        public GameController(AuthorizationService authorizationService, ITeamService teamService, IGameService gameService)
         {
+            _authorizationService = authorizationService;
             _teamService = teamService;
             _gameService = gameService;
         }
 
-        [HttpGet, Route("")]
-        public async Task<IActionResult> GetGameTest()
+        [HttpPost, Route("")]
+        public async Task<IActionResult> UpsertGame([FromBody] Game game)
         {
             Guid requestGuid = Guid.NewGuid();
 
             try
             {
-                var team = _teamService.GetTeam(string.Empty);
-                var games = _gameService.GetGamesByTeam(team.Id);
-                var game = games.FirstOrDefault();
-                if (game == null)
-                {
-                    throw new Exception("Unable to retrieve the specified game!");
-                }
+                var team = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
+                game.TeamId = team.Id;
 
-                game.Substitutions = _gameService.GenerateSubstitutions(game.AttendingPlayers, team.Positions, team.Rotations);
-
-                return Ok(game);
+                var newGame = await _gameService.UpsertGame(game);
+                
+                return Ok(newGame);
             }
             catch (Exception ex)
             {
