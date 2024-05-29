@@ -1,0 +1,28 @@
+<form [formGroup]="newPlayerFormGroup" (submit)="createPlayer()">
+    <h2 mat-dialog-title class="player-header">
+        <mat-icon>person</mat-icon>
+        New Player
+    </h2>
+    <mat-dialog-content class="player-content">
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+            @if (name.hasError('required')) {
+            <mat-error>Player name is required.</mat-error>
+            }
+            @if (name.hasError('minlength')) {
+            <mat-error>Player name must be at least 3 characters long.</mat-error>
+            }
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions [align]="'end'">
+        <button mat-button mat-dialog-close>
+            <mat-icon>cancel</mat-icon>
+            Cancel
+        </button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="newPlayerFormGroup.invalid">
+            <mat-icon>add_circle</mat-icon>
+            Create Player
+        </button>
+    </mat-dialog-actions>
+</form>

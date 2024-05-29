@@ -23,20 +23,31 @@ namespace SportSpot.Server
             _dataService = dataService;
         }
 
-        public async Task<Team?> GetAuthenticatedUserTeam(ClaimsPrincipal httpContextUser)
+        public async Task<Team> GetAuthenticatedUserTeam(ClaimsPrincipal httpContextUser)
         {
+            Team team = null;
             if (httpContextUser?.Identity?.IsAuthenticated == true)
             {
                 var teamUserJson = httpContextUser.Identity.Name;
-                var teamUser = JsonSerializer.Deserialize<TeamUser>(teamUserJson);
+                var teamUserDeserialized = JsonSerializer.Deserialize<TeamUser>(teamUserJson);
 
-                if (teamUser != null)
+                if (teamUserDeserialized != null)
                 {
-                    return await _dataService.GetTeam(teamUser.TeamId);
+                    var teamUser = await _dataService.GetTeamUser(teamUserDeserialized);
+
+                    if (teamUser != null)
+                    {
+                        team = await _dataService.GetTeam(teamUser.TeamId);
+                    }
                 }
             }
 
-            return null;
+            if (team == null)
+            {
+                throw new Exception("Unable to retrieve the specified team!");
+            }
+
+            return team;
         }
 
         public async Task<bool> CreateAuthorizedUser(Team team, string username, string password)

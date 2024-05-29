@@ -328,9 +328,9 @@ namespace SportSpot.BL.Services
             return substitutions;
         }
 
-        public async Task<Substitution?> UpsertSubstitution(Substitution substitution, Guid teamId)
+        public async Task<Substitution?> UpsertSubstitution(Substitution substitution, Guid gameId)
         {
-            if ((await GetGame(substitution.GameId, teamId)) != null)
+            if ((await GetGame(substitution.GameId, gameId)) != null)
             {
                 var substitutions = (await LoadFromFile<Substitution>()).ToList();
                 var existingSubstitution = substitutions.FirstOrDefault(x => x.Id == substitution.Id && x.GameId == substitution.GameId);
@@ -356,7 +356,7 @@ namespace SportSpot.BL.Services
                 bool success = await UpdateFile(substitutions);
             }
 
-            return await GetSubstitution(substitution.Id, substitution.GameId, teamId);
+            return await GetSubstitution(substitution.Id, substitution.GameId, gameId);
         }
 
         public async Task<bool> DeleteSubstitution(Guid substitutionId, Guid gameId, Guid teamId)
@@ -428,9 +428,9 @@ namespace SportSpot.BL.Services
             return await LoadFromFile<TeamUser>();
         }
 
-        public async Task<TeamUser?> GetTeamUser(Guid teamId)
+        public async Task<TeamUser?> GetTeamUser(TeamUser user)
         {
-            return (await LoadFromFile<TeamUser>()).FirstOrDefault(x => x.TeamId == teamId);
+            return (await LoadFromFile<TeamUser>()).FirstOrDefault(x => x.TeamId == user.TeamId && x.Username == user.Username && x.PasswordHash == user.PasswordHash);
         }
 
         public async Task<bool> UpsertTeamUser(TeamUser teamUser)

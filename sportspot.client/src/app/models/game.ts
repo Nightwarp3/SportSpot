@@ -1,3 +1,7 @@
 export interface Game {
-    substitutions: any[];
+    id: string;
+    teamId: string;
+    gameStart: Date;
+    attendingPlayerIds: string[];
+    substitutionIds: string[];
   }

@@ -1,1 +1,59 @@
-<p>team works!</p>
+<div class="team">
+    @if (teamService.team())
+    {
+    <mat-accordion>
+        <sportspot-player-list></sportspot-player-list>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>sports</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>Games</mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-list>
+                <!-- <mat-list-item *ngFor="let player of gameService.games()">
+                    <mat-icon mat-list-icon>person</mat-icon>
+                    <h4 mat-line>{{player.name}}</h4>
+                </mat-list-item> -->
+            </mat-list>
+            <mat-action-row>
+                <!-- <button mat-raised-button color="primary" (click)="addGame()">Add Player</button> -->
+            </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>switch_access_shortcut</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>Positions</mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-list>
+                <!-- <mat-list-item *ngFor="let player of gameService.games()">
+                    <mat-icon mat-list-icon>person</mat-icon>
+                    <h4 mat-line>{{player.name}}</h4>
+                </mat-list-item> -->
+            </mat-list>
+            <mat-action-row>
+                <!-- <button mat-raised-button color="primary" (click)="addGame()">Add Player</button> -->
+            </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>pivot_table_chart</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>Rotations</mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-list>
+                <!-- <mat-list-item *ngFor="let player of gameService.games()">
+                    <mat-icon mat-list-icon>person</mat-icon>
+                    <h4 mat-line>{{player.name}}</h4>
+                </mat-list-item> -->
+            </mat-list>
+            <mat-action-row>
+                <!-- <button mat-raised-button color="primary" (click)="addGame()">Add Player</button> -->
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+    }
+</div>

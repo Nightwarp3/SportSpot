@@ -27,7 +27,7 @@ namespace SportSpot.BL.Services
         Task<Substitution?> GetSubstitution(Guid substitutionId, Guid gameId, Guid teamId);
         Task<IEnumerable<Substitution>> GetSubstitutionsByGame(Guid gameId, Guid teamId);
         Task<Team?> GetTeam(Guid guid);
-        Task<TeamUser?> GetTeamUser(Guid teamId);
+        Task<TeamUser?> GetTeamUser(TeamUser user);
         Task<IEnumerable<TeamUser>> GetTeamUsers();
         Task<Game?> UpsertGame(Game game);
         Task<Player?> UpsertPlayer(Player player);

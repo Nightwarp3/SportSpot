@@ -9,12 +9,27 @@ namespace SportSpot.Server.Controllers
     public class TeamController : ControllerBase
     {
         private readonly ITeamService _teamService;
+        private readonly IGameService _gameService;
+        private readonly IPlayerService _playerService;
+        private readonly IPositionService _positionService;
+        private readonly IRotationService _rotationService;
         private readonly AuthorizationService _authorizationService;
 
-        public TeamController(ITeamService teamService, AuthorizationService authorizationService)
+        public TeamController(
+            ITeamService teamService,
+            IGameService gameService,
+            IPlayerService playerService,
+            IPositionService positionService,
+            IRotationService rotationService,
+            AuthorizationService authorizationService
+        )
         {
             _teamService = teamService;
             _authorizationService = authorizationService;
+            _gameService = gameService;
+            _playerService = playerService;
+            _positionService = positionService;
+            _rotationService = rotationService;
         }
 
         [HttpGet, Route("")]
@@ -25,10 +40,6 @@ namespace SportSpot.Server.Controllers
             try
             {
                 var team = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
-                if (team == null)
-                {
-                    throw new Exception("Unable to retrieve the specified team!");
-                }
 
                 return Ok(team);
             }
@@ -47,7 +58,7 @@ namespace SportSpot.Server.Controllers
             try
             {
                 var team = await _teamService.CreateTeam(teamCreateRequest.Team);
-                bool success = await _authorizationService.CreateAuthorizedUser(team, teamCreateRequest.Username, teamCreateRequest.Password);
+                bool success = await _authorizationService.CreateAuthorizedUser(team, teamCreateRequest.Username.ToLower(), teamCreateRequest.Password);
 
                 if (!success)
                 {
@@ -55,11 +66,12 @@ namespace SportSpot.Server.Controllers
                     throw new Exception("Error occurred creating Team and setting Password. Please try again.");
                 }
 
-                return Ok(team);
+                // Don't return the team, we'll want the user to reauthenticate
+                return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest($"Encountered an error while creating team. Request Guid: {requestGuid}, Endpoint: CreateTeam, HTTPGet, Error: {ex.Message}");
+                return BadRequest($"Encountered an error while creating team. Request Guid: {requestGuid}, Endpoint: CreateTeam, HttpPost, Error: {ex.Message}");
             }
         }
 
@@ -71,10 +83,6 @@ namespace SportSpot.Server.Controllers
             try
             {
                 var existingTeam = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
-                if (existingTeam == null)
-                {
-                    throw new Exception("Error retrieving team!");
-                }
 
                 team.Id = existingTeam.Id;
                 var newTeam = await _teamService.UpdateTeam(team);
@@ -84,7 +92,7 @@ namespace SportSpot.Server.Controllers
             catch (Exception ex)
             {
                 // Log the exception
-                return BadRequest($"Encountered an error while Updating the provided Team. Request Guid: {requestGuid}, Endpoint: GetGameTest, HTTPGet, Error: {ex.Message}");
+                return BadRequest($"Encountered an error while updating the provided Team. Request Guid: {requestGuid}, Endpoint: UpdateTeam, HttpPut, Error: {ex.Message}");
             }
         }
 
@@ -96,17 +104,89 @@ namespace SportSpot.Server.Controllers
             try
             {
                 var team = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
-                if (team == null)
-                {
-                    throw new Exception("Error retrieving team!");
-                }
 
                 return Ok(await _teamService.DeleteTeam(team));
             }
             catch (Exception ex)
             {
                 // Log the exception
-                return BadRequest($"Encountered an error while getting game. Request Guid: {requestGuid}, Endpoint: GetGameTest, HTTPGet, Error: {ex.Message}");
+                return BadRequest($"Encountered an error while deleting game. Request Guid: {requestGuid}, Endpoint: DeleteTeam, HTTPDelete, Error: {ex.Message}");
+            }
+        }
+
+        [HttpGet, Route("Game")]
+        public async Task<IActionResult> GetTeamGames()
+        {
+            Guid requestGuid = Guid.NewGuid();
+
+            try
+            {
+                var team = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
+                var games = await _gameService.GetGamesByTeam(team.Id);
+
+                return Ok(games);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return BadRequest($"Encountered an error while getting games for team. Request Guid: {requestGuid}, Endpoint: GetTeamGames, HTTPGet, Error: {ex.Message}");
+            }
+        }
+
+        [HttpGet, Route("Player")]
+        public async Task<IActionResult> GetTeamPlayers()
+        {
+            Guid requestGuid = Guid.NewGuid();
+
+            try
+            {
+                var team = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
+                var players = await _playerService.GetPlayersByTeam(team.Id);
+
+                return Ok(players);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return BadRequest($"Encountered an error while getting players for team. Request Guid: {requestGuid}, Endpoint: GetTeamPlayers, HTTPGet, Error: {ex.Message}");
+            }
+        }
+
+        [HttpGet, Route("Position")]
+        public async Task<IActionResult> GetTeamPositions()
+        {
+            Guid requestGuid = Guid.NewGuid();
+
+            try
+            {
+                var team = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
+                var positions = await _positionService.GetPositionsByTeam(team.Id);
+
+                return Ok(positions);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return BadRequest($"Encountered an error while getting positions for team. Request Guid: {requestGuid}, Endpoint: GetTeamPositions, HTTPGet, Error: {ex.Message}");
+            }
+        }
+
+        [HttpGet, Route("Rotation")]
+        public async Task<IActionResult> GetTeamRotations()
+        {
+            Guid requestGuid = Guid.NewGuid();
+
+            try
+            {
+                var team = await _authorizationService.GetAuthenticatedUserTeam(HttpContext.User);
+                var rotations = await _rotationService.GetRotationsByTeam(team.Id);
+
+                return Ok(rotations);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return BadRequest($"Encountered an error while getting rotations for team. Request Guid: {requestGuid}, Endpoint: GetTeamRotations, HTTPGet, Error: {ex.Message}");
             }
         }
     }

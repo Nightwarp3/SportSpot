@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,18 +19,29 @@ export class AuthService {
         localStorage.setItem(this.storageKey, token);
     }
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, private router: Router) { }
 
-    public authorizeUser(password: string): void {
-        this.httpClient.post<string>('/api/Authentiate', password)
+    public authorizeUser(username: string, password: string): Observable<boolean> {
+        let body = {
+            username: username,
+            password: password
+        };
+
+        const completedSubject = new Subject<boolean>();
+        this.httpClient.post<string>('/api/Authenticate', body)
             .subscribe({
                 next: (token: string) => {
                     this.JwtToken = token;
-                    this.authorized.set(this.JwtToken.length> 0);
+                    this.authorized.set(token.length > 0);
+                    this.router.navigate(['team'])
+                    completedSubject.next(true);
                 },
                 error: (err) => {
                     console.log(err);
+                    completedSubject.next(false);
                 }
-            })
+            });
+        
+        return completedSubject.asObservable();
     }
 }

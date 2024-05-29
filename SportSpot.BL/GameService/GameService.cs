@@ -5,17 +5,15 @@ namespace SportSpot.BL.Services
     public class GameService : IGameService
     {
         private readonly IDataService _dataService;
-        private readonly ITeamService _teamService;
         private readonly IPlayerService _playerService;
 
-        public GameService(IDataService dataService, ITeamService teamService, IPlayerService playerService)
+        public GameService(IDataService dataService, IPlayerService playerService)
         {
             _dataService = dataService;
-            _teamService = teamService;
             _playerService = playerService;
         }
         
-        public async Task<Game> GetGame(Guid gameId, Guid teamId)
+        public async Task<Game?> GetGame(Guid gameId, Guid teamId)
         {
             return await _dataService.GetGame(gameId, teamId);
         }
@@ -31,9 +29,10 @@ namespace SportSpot.BL.Services
             return await _dataService.UpsertGame(game);
         }
 
-        public async Task<bool> DeleteGame(Guid gameId)
+        public async Task<bool> DeleteGame(Guid gameId, Guid teamId)
         {
-            return true;
+            await _dataService.DeleteSubstitutionsByGame(gameId, teamId);
+            return await _dataService.DeleteGame(gameId, teamId);
         }
 
         public async Task<List<Substitution>> GenerateSubstitutions(IEnumerable<Player> players, IEnumerable<Position> positions, IEnumerable<Rotation> rotations)

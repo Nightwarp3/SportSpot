@@ -1,7 +1,9 @@
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     private readonly authHeader = 'Authorization';
 

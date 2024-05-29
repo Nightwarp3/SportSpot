@@ -1,5 +1,5 @@
 export interface Team {
-    id: string; // guid
+    id: string;
     name: string;
     description: string;
 }

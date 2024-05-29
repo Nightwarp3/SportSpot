@@ -37,6 +37,9 @@ builder.Services.AddScoped<AuthorizationService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IPositionService, PositionService>();
+builder.Services.AddScoped<IRotationService, RotationService>();
+builder.Services.AddScoped<ISubstitutionService, SubstitutionService>();
 
 var app = builder.Build();
 

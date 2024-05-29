@@ -1,0 +1,17 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <mat-icon>group</mat-icon>
+        </mat-panel-title>
+        <mat-panel-description>Players</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list>
+        <mat-list-item *ngFor="let player of playerService.players()">
+            <mat-icon mat-list-icon>person</mat-icon>
+            <h4 mat-line>{{player.name}}</h4>
+        </mat-list-item>
+    </mat-list>
+    <mat-action-row>
+        <button mat-raised-button color="primary" (click)="addPlayer()">Add Player</button>
+    </mat-action-row>
+</mat-expansion-panel>

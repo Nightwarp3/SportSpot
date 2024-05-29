@@ -16,6 +16,8 @@ $sportspotclient-accent: mat.define-palette(mat.$blue-gray-palette, A200, A100, 
 
 // The warn palette is optional (defaults to red).
 $sportspotclient-warn: mat.define-palette(mat.$red-palette);
+$success: mat.get-color-from-palette(mat.$green-palette, '200');
+$warn: mat.get-color-from-palette(mat.$red-palette, '200');
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -64,6 +66,15 @@ body {
 
 .spacer {
     flex: 1;
+}
+
+.snackbar-error {
+    --mdc-snackbar-container-color: #{$warn};
+}
+
+
+.snackbar-success {
+    --mdc-snackbar-container-color: #{$success};
 }
 
 // scrollbar override
