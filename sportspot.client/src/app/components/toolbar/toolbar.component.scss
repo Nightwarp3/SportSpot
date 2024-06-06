@@ -1,20 +1,42 @@
-.main-sidenav {
+:host {
     display: flex;
     flex-direction: column;
-    height: -webkit-fill-available;
+    flex: 1;
+}
 
-    .mat-mdc-list-item {
+.toolbar {
+    flex: 1;
+
+    .main-sidenav {
         display: flex;
         flex-direction: column;
-        text-align: center;
+        height: -webkit-fill-available;
 
-        .home-icon {
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 10px;
+        .mat-mdc-list-item {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding-top: 4px;
+
+            &.active-link {
+                background-color: rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
+            }
+
+            .home-icon {
+                background-color: rgba(255, 255, 255, 0.4);
+                border-radius: 10px;
+            }
+
+            .mat-mdc-list-item-icon {
+                margin: unset;
+            }
         }
+    }
 
-        .mat-mdc-list-item-icon {
-            margin: unset;
+    .mat-sidenav-content {
+        ::ng-deep & > :not(router-outlet):not(.mat-toolbar) {
+            margin: 8px 8px 0 8px;
         }
     }
 }

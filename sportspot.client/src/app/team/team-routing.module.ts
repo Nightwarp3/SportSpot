@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TeamComponent } from './components/team/team.component';
 import { authGuard } from '../guards/auth.guard';
 import { GameComponent } from './components/game/game.component';
 import { PlayerListComponent } from './components/player-list/player-list.component';
+import { TeamDashboardComponent } from './components/team-dashboard/team-dashboard.component';
 
 const routes: Routes = [
     { 
-        path: 'team',
-        component: TeamComponent,
+        path: 'team-dashboard',
+        component: TeamDashboardComponent,
         canActivate: [authGuard],
         children: [
-            { path: '', component: TeamComponent },
+            { path: '', component: TeamDashboardComponent },
             { path: 'game', component: GameComponent },
             { path: 'player', component: PlayerListComponent },
             { path: 'rotation', component: PlayerListComponent },

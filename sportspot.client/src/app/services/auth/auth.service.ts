@@ -19,7 +19,12 @@ export class AuthService {
         localStorage.setItem(this.storageKey, token);
     }
 
-    constructor(private httpClient: HttpClient, private router: Router) { }
+    constructor(private httpClient: HttpClient, private router: Router) {
+        if(!!this.JwtToken) {
+            this.authorized.set(true);
+            this.router.navigate(['team-dashboard']);
+        }
+    }
 
     public authorizeUser(username: string, password: string): Observable<boolean> {
         let body = {
@@ -33,7 +38,7 @@ export class AuthService {
                 next: (token: string) => {
                     this.JwtToken = token;
                     this.authorized.set(token.length > 0);
-                    this.router.navigate(['team'])
+                    this.router.navigate(['team-dashboard'])
                     completedSubject.next(true);
                 },
                 error: (err) => {

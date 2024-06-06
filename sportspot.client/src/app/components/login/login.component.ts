@@ -65,7 +65,7 @@ export class LoginComponent {
 
         if (this.authService.JwtToken?.length > 0) {
             this.authService.authorized.set(true);
-            this.router.navigate(['team']);
+            this.router.navigate(['team-dashboard']);
         }
     }
 

@@ -1,7 +1,17 @@
-<div class="team">
-    @if (teamService.team())
-    {
-    <mat-accordion>
+<div class="team-dashboard">
+    <div class="team-dashboard-header">
+        <mat-card>
+            <mat-card-content>
+                <h3>{{teamService.team()?.name}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- <mat-accordion>
         <sportspot-player-list></sportspot-player-list>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -11,13 +21,13 @@
                 <mat-panel-description>Games</mat-panel-description>
             </mat-expansion-panel-header>
             <mat-list>
-                <!-- <mat-list-item *ngFor="let player of gameService.games()">
+                <mat-list-item *ngFor="let player of gameService.games()">
                     <mat-icon mat-list-icon>person</mat-icon>
                     <h4 mat-line>{{player.name}}</h4>
-                </mat-list-item> -->
+                </mat-list-item>
             </mat-list>
             <mat-action-row>
-                <!-- <button mat-raised-button color="primary" (click)="addGame()">Add Player</button> -->
+                <button mat-raised-button color="primary" (click)="addGame()">Add Player</button>
             </mat-action-row>
         </mat-expansion-panel>
         <mat-expansion-panel>
@@ -28,13 +38,13 @@
                 <mat-panel-description>Positions</mat-panel-description>
             </mat-expansion-panel-header>
             <mat-list>
-                <!-- <mat-list-item *ngFor="let player of gameService.games()">
+                <mat-list-item *ngFor="let player of gameService.games()">
                     <mat-icon mat-list-icon>person</mat-icon>
                     <h4 mat-line>{{player.name}}</h4>
-                </mat-list-item> -->
+                </mat-list-item>
             </mat-list>
             <mat-action-row>
-                <!-- <button mat-raised-button color="primary" (click)="addGame()">Add Player</button> -->
+                <button mat-raised-button color="primary" (click)="addGame()">Add Player</button>
             </mat-action-row>
         </mat-expansion-panel>
         <mat-expansion-panel>
@@ -45,15 +55,14 @@
                 <mat-panel-description>Rotations</mat-panel-description>
             </mat-expansion-panel-header>
             <mat-list>
-                <!-- <mat-list-item *ngFor="let player of gameService.games()">
+                <mat-list-item *ngFor="let player of gameService.games()">
                     <mat-icon mat-list-icon>person</mat-icon>
                     <h4 mat-line>{{player.name}}</h4>
-                </mat-list-item> -->
+                </mat-list-item>
             </mat-list>
             <mat-action-row>
-                <!-- <button mat-raised-button color="primary" (click)="addGame()">Add Player</button> -->
+                <button mat-raised-button color="primary" (click)="addGame()">Add Player</button>
             </mat-action-row>
         </mat-expansion-panel>
-    </mat-accordion>
-    }
+    </mat-accordion> -->
 </div>

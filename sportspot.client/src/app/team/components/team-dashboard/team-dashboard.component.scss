@@ -1,0 +1,15 @@
+.team-dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .team-dashboard-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        & > * {
+            margin: 0 8px;
+        }
+    }
+}

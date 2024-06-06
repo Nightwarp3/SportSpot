@@ -1,14 +1,13 @@
-import { Component, OnInit, effect } from '@angular/core';
-import { TeamService } from '../../../services/team/team.service';
+import { Component, effect } from '@angular/core';
 import { LayoutService } from '../../../services/layout/layout.service';
+import { TeamService } from '../../../services/team/team.service';
 
 @Component({
-  selector: 'sportspot-team',
-  templateUrl: './team.component.html',
-  styleUrl: './team.component.scss'
+  selector: 'sportspot-team-dashboard',
+  templateUrl: './team-dashboard.component.html',
+  styleUrl: './team-dashboard.component.scss'
 })
-export class TeamComponent implements OnInit {
-
+export class TeamDashboardComponent {
     constructor(
         public teamService: TeamService,
         private layoutService: LayoutService
@@ -22,10 +21,9 @@ export class TeamComponent implements OnInit {
                 this.teamService.getRotations();
             }
         });
-    }
-
-    public ngOnInit(): void {
         this.layoutService.showSpinner('Loading Team');
         this.teamService.getTeam();
     }
+
+    
 }

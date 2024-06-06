@@ -1,12 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TeamRoutingModule } from './team-routing.module';
-import { GameComponent } from './components/game/game.component';
-import { GameDetailsComponent } from './components/game-details/game-details.component';
-import { PlayerListComponent } from './components/player-list/player-list.component';
-import { PlayerModalComponent } from './components/player-modal/player-modal.component';
-import { TeamComponent } from './components/team/team.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +21,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+
+import { TeamRoutingModule } from './team-routing.module';
+import { GameComponent } from './components/game/game.component';
+import { GameDetailsComponent } from './components/game-details/game-details.component';
+import { PlayerListComponent } from './components/player-list/player-list.component';
+import { PlayerModalComponent } from './components/player-modal/player-modal.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { TeamDashboardComponent } from './components/team-dashboard/team-dashboard.component';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { AppRoutingModule } from '../app-routing.module';
     GameDetailsComponent,
     PlayerListComponent,
     PlayerModalComponent,
-    TeamComponent
+    TeamDashboardComponent
   ],
   imports: [
     CommonModule,
