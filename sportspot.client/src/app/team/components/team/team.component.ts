@@ -1,6 +1,6 @@
 import { Component, OnInit, effect } from '@angular/core';
-import { TeamService } from '../../services/team/team.service';
-import { LayoutService } from '../../services/layout/layout.service';
+import { TeamService } from '../../../services/team/team.service';
+import { LayoutService } from '../../../services/layout/layout.service';
 
 @Component({
   selector: 'sportspot-team',

@@ -20,9 +20,23 @@
             <mat-icon>cancel</mat-icon>
             Cancel
         </button>
+        @if(!!data.player && data.action == 'edit') {
+        <button type="submit" mat-raised-button color="primary" [disabled]="newPlayerFormGroup.invalid">
+            <mat-icon>edit</mat-icon>
+            Save Changes
+        </button>
+        }
+        @else if (!!data.player && data.action == 'delete') {
+            <button type="submit" mat-raised-button color="warn">
+                <mat-icon>delete</mat-icon>
+                Delete Player
+            </button>
+        }
+        @else {
         <button type="submit" mat-raised-button color="primary" [disabled]="newPlayerFormGroup.invalid">
             <mat-icon>add_circle</mat-icon>
             Create Player
         </button>
+        }
     </mat-dialog-actions>
 </form>

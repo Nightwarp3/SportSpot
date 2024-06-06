@@ -1,0 +1,15 @@
+.login {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    mat-card {
+        margin: 20px;
+
+        .mat-mdc-card-content {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { PlayerService } from '../../services/player/player.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PlayerModalComponent } from '../player-modal/player-modal.component';
+import { PlayerService } from '../../../services/player/player.service';
+import { Player } from '../../../models/player';
 
 @Component({
   selector: 'sportspot-player-list',
@@ -17,5 +18,15 @@ export class PlayerListComponent {
 
     public addPlayer(): void {
         this.dialog.open(PlayerModalComponent);
+    }
+
+    public editPlayer(player: Player): void {
+        this.dialog.open(PlayerModalComponent, {
+            data: player
+        });
+    }
+
+    public deletePlayer(player: Player): void {
+        
     }
 }

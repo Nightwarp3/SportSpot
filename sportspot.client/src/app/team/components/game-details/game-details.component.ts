@@ -1,6 +1,6 @@
 import { Component, effect } from '@angular/core';
-import { GameService } from '../../services/game/game.service';
-import { Game } from '../../models/game';
+import { GameService } from '../../../services/game/game.service';
+import { Game } from '../../../models/game';
 
 @Component({
     selector: 'sportspot-game-details',

@@ -12,39 +12,39 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { TeamComponent } from './components/team/team.component';
-import { GameComponent } from './components/game/game.component';
-import { GameDetailsComponent } from './components/game-details/game-details.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
-import { PlayerListComponent } from './components/player-list/player-list.component';
-import { PlayerModalComponent } from './components/player-modal/player-modal.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { TeamModule } from './team/team.module';
 
 @NgModule({
     declarations: [
         AppComponent,
-        TeamComponent,
-        GameComponent,
-        GameDetailsComponent,
         HomeComponent,
         SpinnerComponent,
-        PlayerListComponent,
-        PlayerModalComponent
+        ToolbarComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
-        AppRoutingModule,
+        RouterOutlet,
+        RouterLink,
+        RouterLinkActive,
         ReactiveFormsModule,
         MatToolbarModule,
         MatButtonModule,
@@ -59,7 +59,12 @@ import { PlayerModalComponent } from './components/player-modal/player-modal.com
         MatSnackBarModule,
         MatExpansionModule,
         MatProgressSpinnerModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSidenavModule,
+        LayoutModule,
+        TeamModule,
+        
+        AppRoutingModule
     ],
     providers: [
         provideAnimationsAsync(),

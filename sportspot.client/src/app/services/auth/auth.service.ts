@@ -44,4 +44,10 @@ export class AuthService {
         
         return completedSubject.asObservable();
     }
+
+    public logout(): void {
+        localStorage.removeItem(this.storageKey);
+        this.authorized.set(false);
+        this.router.navigate(['home']);
+    }
 }

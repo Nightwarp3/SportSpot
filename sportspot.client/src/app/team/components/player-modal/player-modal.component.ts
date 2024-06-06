@@ -1,9 +1,10 @@
-import { Component, effect } from '@angular/core';
+import { Component, Inject, effect } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PlayerService } from '../../services/player/player.service';
-import { TeamService } from '../../services/team/team.service';
-import { MatDialogRef } from '@angular/material/dialog';
-import { LayoutService } from '../../services/layout/layout.service';
+import { PlayerService } from '../../../services/player/player.service';
+import { TeamService } from '../../../services/team/team.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LayoutService } from '../../../services/layout/layout.service';
+import { Player } from '../../../models/player';
 
 @Component({
   selector: 'sportspot-player-modal',
@@ -29,7 +30,8 @@ export class PlayerModalComponent {
         public dialogRef: MatDialogRef<PlayerModalComponent>,
         private fb: FormBuilder,
         private teamService: TeamService,
-        private layoutService: LayoutService
+        private layoutService: LayoutService,
+        @Inject(MAT_DIALOG_DATA) public data: { player: Player, action: 'delete' | 'edit' }
     ) {
         effect(() => {
             if (!this.playerService.playerLoading()) {

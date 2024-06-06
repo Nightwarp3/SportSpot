@@ -1,0 +1,73 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" [opened]="showSidenav" fixedInViewport="true">
+        <mat-nav-list class="main-sidenav">
+            @if (!showSidenav) {
+            <div class="sidenav-header">
+                <button mat-icon-button (click)="sidenav.close()">
+                    <mat-icon>menu_open</mat-icon>
+                </button>
+            </div>
+            }
+            <mat-list-item routerLink="/home" routerLinkActive="active">
+                <img class="home-icon" src="assets/SportSpotLogoSmall.png" alt="" matListItemIcon />
+                <div matListItemLine>Home</div>
+                <div matListItemMeta></div>
+            </mat-list-item>
+            @if (authService.authorized()) {
+            <mat-list-item routerLink="/team" routerLinkActive="active">
+                <mat-icon matListItemIcon>group</mat-icon>
+                <div matListItemLine>Team</div>
+                <div matListItemMeta></div>
+            </mat-list-item>
+            <mat-list-item routerLink="/players" routerLinkActive="active">
+                <mat-icon matListItemIcon>group</mat-icon>
+                <div matListItemLine>Players</div>
+                <div matListItemMeta></div>
+            </mat-list-item>
+            <mat-list-item routerLink="/games" routerLinkActive="active">
+                <mat-icon matListItemIcon>sports_soccer</mat-icon>
+                <div matListItemLine>Games</div>
+                <div matListItemMeta></div>
+            </mat-list-item>
+            }
+            <div class="spacer"></div>
+            @if (authService.authorized()) {
+            <mat-list-item routerLink="/settings" routerLinkActive="active">
+                <mat-icon matListItemIcon>settings</mat-icon>
+                <div matListItemLine>Settings</div>
+                <div matListItemMeta></div>
+            </mat-list-item>
+            <mat-list-item (click)="authService.logout()">
+                <mat-icon matListItemIcon>exit_to_app</mat-icon>
+                <div matListItemLine>Logout</div>
+                <div matListItemMeta></div>
+            </mat-list-item>
+            } @else {
+            <mat-list-item routerLink="/login" routerLinkActive="active">
+                <mat-icon matListItemIcon>account_circle</mat-icon>
+                <div matListItemLine>Login</div>
+                <div matListItemMeta></div>
+            </mat-list-item>
+            }
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        @if(!showSidenav) {
+        <mat-toolbar>
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            @if (teamService.team()) {
+            <span>{{ teamService.team()?.name }}</span>
+            } @else {
+            <span>Sport Spot</span>
+            }
+            <span class="spacer"></span>
+            <button mat-icon-button>
+                <mat-icon>share</mat-icon>
+            </button>
+        </mat-toolbar>
+        }
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

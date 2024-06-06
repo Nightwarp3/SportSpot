@@ -7,8 +7,13 @@
     </mat-expansion-panel-header>
     <mat-list>
         <mat-list-item *ngFor="let player of playerService.players()">
-            <mat-icon mat-list-icon>person</mat-icon>
             <h4 mat-line>{{player.name}}</h4>
+            <button mat-icon-button (click)="editPlayer(player)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deletePlayer(player)">
+                <mat-icon>delete</mat-icon>
+            </button>
         </mat-list-item>
     </mat-list>
     <mat-action-row>
